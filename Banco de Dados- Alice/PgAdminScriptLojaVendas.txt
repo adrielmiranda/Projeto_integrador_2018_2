@@ -1,0 +1,71 @@
+create table tb_cliente
+(
+id_cliente int not null,
+cpf_cliente character varying(14) not null,
+nome_cliente character varying(50) not null,
+rua_cliente character varying(50) not null,
+complemento_cliente character varying(50) not null,
+setor_cliente character varying(50) not null,
+cidade_cliente character varying(50) not null,
+cep_cliente character varying(10) not null,
+uf_cliente character varying(2) not null,
+telefone_celular_cliente character varying(20) not null,
+telefone_residencial_cliente character varying(20) not null,
+telefone_comercial_cliente character varying(20) not null,
+PRIMARY KEY (cpf_cliente)
+);
+
+create table tb_produto
+(
+ean_13_produto character varying(20) not null,
+descriçao_produto character varying(50) not null,
+preço_produto double precision not null,
+gramas_produto double precision not null,
+metros_produto double precision not null,
+unidade_produto int not null,
+PRIMARY KEY (ean_13_produto)
+);
+
+create table tb_venda
+(
+NF_venda character varying(20) not null,
+data_venda date not null,
+nome_cliente character varying(50) not null,
+valor_desconto_venda double precision not null,
+valor_total_venda double precision not null,
+pagamento_cart_credito double precision not null,
+pagamento_cart_debito double precision not null,
+pagamento_dinheiro double precision not null,
+pagamento_boleto double precision not null,
+nome_produto character varying(20) not null,
+quantidade_produto int not null,
+valor_produto double precision not null,
+PRIMARY KEY(NF_venda),
+cpf_cliente character varying(14) not null,
+ean_13_produto character varying(20) not null
+);
+
+alter table tb_venda 
+add constraint tb_venda_cpf_cliente 
+foreign key (cpf_cliente)
+references "tb_cliente" (cpf_cliente)
+
+alter table tb_venda 
+add constraint tb_venda_ean_13_produto
+foreign key (ean_13_produto)
+references "tb_produto" (ean_13_produto)
+
+
+
+select * from tb_venda
+select * from tb_cliente
+select * from tb_produto
+
+
+
+
+
+
+
+
+
